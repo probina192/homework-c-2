@@ -1,3 +1,36 @@
+//Task1
+#include <iostream>
+
+int main() {
+    //1.1 Объявить константный указатель на константу типа float.
+    const float value = 3.14;
+    const float* const ptrToConstFloat = &value;
+
+    //1.2. Объявить тип указателя на long int.
+    typedef long int* LongIntPtr;
+
+    //1.3. Объявить указатель на double.
+    double* ptrToDouble;
+
+    //1.4. Объявить указатель на константу типа short int.
+    const short int* ptrToConstShortInt;
+
+    //1.5. Объявить тип константного указателя на константу типа float.
+    const float* const* constPtrToConstFloat;
+
+    //1.6. Объявить тип указателя на константу типа char.
+    typedef const char* ConstCharPtr;
+
+    //1.7. Объявить константный указатель на double.
+    double value2 = 2.718;
+    double* const constPtrToDouble = &value2;
+
+    //1.8. Объявить тип константного указателя на unsigned int.
+    typedef const unsigned int* ConstUintPtr;
+
+    return 0;
+}
+
 //Task2
 #include <iostream>
 
