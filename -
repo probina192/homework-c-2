@@ -1,0 +1,192 @@
+//Task2
+#include <iostream>
+
+double* allocateArray(int size) {
+    return new double[size];
+}
+
+// Функция для заполнения массива данными
+void fillArray(double* arr, int size) {
+    for (int i = 0; i < size; i++) {
+        std::cout << "Введите значение для ячейки " << i << ": ";
+        std::cin >> arr[i];
+    }
+}
+
+// Функция для показа данных на экран
+void displayArray(double* arr, int size) {
+    std::cout << "Данные в массиве: ";
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+void deallocateArray(double* arr) {
+    delete[] arr;
+}
+
+int main() {
+    char choice;
+    do {
+        int size;
+        std::cout << "Введите размер массива: ";
+        std::cin >> size;
+
+        double* arr = allocateArray(size); // Выделение памяти для массива
+        fillArray(arr, size); // Заполнение массива данными
+        displayArray(arr, size); // Показ массива на экран
+        deallocateArray(arr); // Освобождение памяти, выделенной для массива
+
+        std::cout << "Хотите продолжить работу? (y/n): ";
+        std::cin >> choice;
+    } while (choice == 'y' || choice == 'Y');
+
+    return 0;
+}
+
+//Task 3
+#include <iostream>
+
+void swapEvenOdd(int* arr, int size) {
+    for (int i = 0; i < size - 1; i += 2) {
+        int temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+    }
+}
+
+int main() {
+    int* arr = new int[12]; 
+    for (int i = 0; i < 12; i++) {
+        arr[i] = i;
+    }
+    
+    std::cout << "Исходный массив: ";
+    for (int i = 0; i < 12; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    swapEvenOdd(arr, 12); 
+
+    std::cout << "Массив после обмена: ";
+    for (int i = 0; i < 12; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    delete[] arr;
+    return 0;
+}
+
+//Task 4
+#include <iostream>
+#include <cstdlib> 
+#include <ctime> 
+
+void fillArray(int** arr, int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            arr[i][j] = rand() % 41 + 10; 
+        }
+    }
+}
+
+void displayArray(int** arr, int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            std::cout << arr[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+int main() {
+    int rows, cols;
+    std::cout << "Введите количество строк: ";
+    std::cin >> rows;
+    std::cout << "Введите количество столбцов: ";
+    std::cin >> cols;
+
+    int** arr = new int*[rows];
+    for (int i = 0; i < rows; i++) {
+        arr[i] = new int[cols];
+    }
+
+    srand(time(0));
+
+    fillArray(arr, rows, cols);
+    displayArray(arr, rows, cols);
+
+    for (int i = 0; i < rows; i++) {
+        delete[] arr[i];
+    }
+    delete[] arr;
+
+    return 0;
+}
+
+//Task5
+#include <iostream>
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int subtract(int a, int b) {
+    return a - b;
+}
+
+int multiply(int a, int b) {
+    return a * b;
+}
+
+int divide(int a, int b) {
+    if (b != 0) {
+        return a / b;
+    } else {
+        std::cerr << "Ошибка: Деление на ноль\n";
+        return 0;
+    }
+}
+
+int main() {
+    int num1, num2;
+    char op;
+
+    typedef int (*ArithmeticFunction)(int, int);
+    ArithmeticFunction operations[] = {add, subtract, multiply, divide};
+
+    while (true) {
+        std::cout << "Введите два числа и арифметическую операцию (+, -, *, /), разделенные пробелами: ";
+        std::cin >> num1 >> num2 >> op;
+
+        if (op == ' ') {
+            break;
+        }
+
+        int result;
+        switch (op) {
+            case '+':
+                result = operations[0](num1, num2);
+                break;
+            case '-':
+                result = operations[1](num1, num2);
+                break;
+            case '*':
+                result = operations[2](num1, num2);
+                break;
+            case '/':
+                result = operations[3](num1, num2);
+                break;
+            default:
+                std::cerr << "Ошибка: Недопустимая операция\n";
+                continue;
+        }
+
+        std::cout << "Результат: " << result << std::endl;
+    }
+
+    return 0;
+}
